@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Priya's Makeover – Luxury Beauty Expert, Kolkata</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=Cinzel+Decorative:wght@400;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c8965c;
+      --gold-light: #e8c99a;
+      --gold-dark: #9a6c38;
+      --blush: #f9ede4;
+      --blush-deep: #f0d0bf;
+      --rose: #d4856a;
+      --rose-dark: #b5644e;
+      --cream: #fdf8f4;
+      --ivory: #fff9f5;
+      --deep: #140c06;
+      --bark: #3d2612;
+      --muted: #7a5c48;
+      --charcoal: #1e1208;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--cream);
+      color: var(--deep);
+      overflow-x: hidden;
+      cursor: none
+    }
+
+    /* CURSOR */
+    .cur-d,
+    .cur-r {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform .08s
+    }
+
+    .cur-d {
+      width: 7px;
+      height: 7px;
+      background: var(--gold)
+    }
+
+    .cur-r {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--gold);
+      z-index: 9998;
+      transition: all .2s ease;
+      opacity: .8
+    }
+
+    .cur-r.big {
+      transform: translate(-50%, -50%) scale(2.2);
+      opacity: .3;
+      border-color: var(--rose)
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--deep);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .9s, visibility .9s
+    }
+
+    #loader.gone {
+      opacity: 0;
+      visibility: hidden
+    }
+
+    .ld-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: var(--gold-light);
+      letter-spacing: 5px;
+      text-align: center
+    }
+
+    .ld-sub {
+      font-family: 'Cormorant Upright', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(200, 150, 92, .4);
+      margin-top: 8px;
+      letter-spacing: 2px
+    }
+
+    .ld-bar {
+      width: 160px;
+      height: 1px;
+      background: rgba(200, 150, 92, .15);
+      margin-top: 30px;
+      overflow: hidden
+    }
+
+    .ld-bar::after {
+      content: '';
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: sweep 1.8s ease infinite
+    }
+
+    @keyframes sweep {
+      from {
+        transform: translateX(-100%)
+      }
+
+      to {
+        transform: translateX(100%)
+      }
+    }
+
+    /* ════ NAVBAR ════ */
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 22px 0;
+      background: transparent;
+      transition: all .5s
+    }
+
+    .navbar.scrolled {
+      background: rgba(253, 248, 244, .96);
+      backdrop-filter: blur(20px);
+      padding: 12px 0;
+      box-shadow: 0 2px 40px rgba(60, 20, 5, .07)
+    }
+
+    .navbar-brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem;
+      color: #fff !important;
+      letter-spacing: 1px;
+      transition: color .4s
+    }
+
+    .navbar-brand em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.5rem
+    }
+
+    .navbar.scrolled .navbar-brand {
+      color: var(--bark) !important
+    }
+
+    .navbar.scrolled .navbar-brand em {
+      color: var(--gold-dark)
+    }
+
+    .nav-link {
+      font-size: .73rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .8) !important;
+      padding: 6px 14px !important;
+      position: relative;
+      transition: color .3s
+    }
+
+    .navbar.scrolled .nav-link {
+      color: var(--muted) !important
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: all .3s;
+      transform: translateX(-50%)
+    }
+
+    .nav-link:hover::after {
+      width: 50%
+    }
+
+    .nav-link:hover {
+      color: var(--gold-light) !important
+    }
+
+    .navbar.scrolled .nav-link:hover {
+      color: var(--gold-dark) !important
+    }
+
+    .btn-nbook {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #fff !important;
+      border-radius: 50px;
+      padding: 9px 26px !important;
+      font-size: .72rem !important;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 20px rgba(155, 110, 56, .4);
+      transition: all .3s
+    }
+
+    .btn-nbook:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(155, 110, 56, .55)
+    }
+
+    .btn-nbook::after {
+      display: none !important
+    }
+
+    .navbar-toggler {
+      border: 1px solid rgba(200, 150, 92, .5);
+      padding: 5px 9px
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28200,150,92,1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+    }
+
+    /* ════ HERO ════ */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-carousel,
+    .carousel-inner,
+    .carousel-item {
+      height: 100vh
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.07);
+      transition: transform 9s cubic-bezier(.25, .46, .45, .94)
+    }
+
+    .carousel-item.active .hero-bg {
+      transform: scale(1)
+    }
+
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, transparent 0%, rgba(20, 12, 6, .65) 100%), linear-gradient(110deg, rgba(20, 12, 6, .9) 0%, rgba(20, 12, 6, .35) 55%, rgba(20, 12, 6, .08) 100%)
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 110px 0 80px
+    }
+
+    .h-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: .66rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 24px
+    }
+
+    .h-eyebrow::before,
+    .h-eyebrow::after {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: rgba(232, 201, 154, .45)
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Upright', serif;
+      font-size: clamp(3rem, 8.5vw, 7.5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: .95;
+      letter-spacing: -1px;
+      margin-bottom: 8px
+    }
+
+    .hero-title .il {
+      font-style: italic;
+      color: var(--gold-light);
+      display: block;
+      font-weight: 300;
+      font-size: .88em;
+      margin-top: 6px
+    }
+
+    .h-line {
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 26px 0
+    }
+
+    .hero-sub {
+      font-size: .98rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, .75);
+      max-width: 490px;
+      line-height: 2;
+      margin-bottom: 36px;
+      letter-spacing: .3px
+    }
+
+    .btn-hp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 15px 42px;
+      font-size: .75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      box-shadow: 0 8px 32px rgba(155, 110, 56, .55);
+      transition: all .35s;
+      border: none;
+      cursor: pointer
+    }
+
+    .btn-hp:hover {
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 18px 48px rgba(155, 110, 56, .65)
+    }
+
+    .btn-hg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, .4);
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 14px 36px;
+      font-size: .75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all .35s;
+      margin-left: 14px
+    }
+
+    .btn-hg:hover {
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      border-color: var(--gold-light)
+    }
+
+    .hero-nums {
+      display: flex;
+      gap: 42px;
+      margin-top: 54px
+    }
+
+    .hn-v {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1
+    }
+
+    .hn-l {
+      font-size: .62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .45);
+      margin-top: 5px
+    }
+
+    .hn-sep {
+      width: 1px;
+      background: rgba(255, 255, 255, .12);
+      align-self: stretch
+    }
+
+    .carousel-indicators [data-bs-target] {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .3);
+      border: none;
+      margin: 0 4px;
+      transition: all .3s
+    }
+
+    .carousel-indicators .active {
+      background: var(--gold);
+      transform: scale(1.5)
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      text-align: center;
+      font-size: .6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .4)
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      margin: 10px auto 0;
+      animation: scrollA 2s infinite
+    }
+
+    @keyframes scrollA {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top
+      }
+
+      51% {
+        transform-origin: bottom
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom
+      }
+    }
+
+    .s1 .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1800&q=85')
+    }
+
+    .s2 .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1800&q=85')
+    }
+
+    .s3 .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1800&q=85')
+    }
+
+    /* ════ SHARED ════ */
+    .eyebrow {
+      font-size: .68rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px
+    }
+
+    .sec-title {
+      font-family: 'Cormorant Upright', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1
+    }
+
+    .sec-title em {
+      font-style: italic;
+      color: var(--gold-dark)
+    }
+
+    .gold-rule {
+      width: 54px;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 20px 0
+    }
+
+    .gold-rule.cx {
+      margin: 18px auto 0
+    }
+
+    /* ════ ABOUT ════ */
+    #about {
+      padding: 130px 0;
+      background: var(--ivory);
+      position: relative;
+      overflow: hidden
+    }
+
+    #about::after {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -150px;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(200, 150, 92, .07) 0%, transparent 68%);
+      border-radius: 50%;
+      pointer-events: none
+    }
+
+    .about-frame {
+      position: relative;
+      display: inline-block
+    }
+
+    .about-frame::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(200, 150, 92, .6);
+      border-radius: 2px 54px 2px 54px;
+      z-index: 0;
+      transition: transform .4s
+    }
+
+    .about-frame:hover::before {
+      transform: translate(5px, 5px)
+    }
+
+    .about-frame img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      height: 580px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 2px 54px 2px 54px;
+      box-shadow: 28px 28px 0 var(--blush-deep)
+    }
+
+    .exp-badge {
+      position: absolute;
+      z-index: 2;
+      bottom: 28px;
+      right: -24px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 16px;
+      padding: 22px 28px;
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(155, 110, 56, .45)
+    }
+
+    .exp-badge .n {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1
+    }
+
+    .exp-badge .t {
+      font-size: .62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .85);
+      margin-top: 4px
+    }
+
+    .abt-wrap {
+      padding: 0 0 0 44px
+    }
+
+    .abt-p {
+      font-size: .96rem;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 15px;
+      font-weight: 400
+    }
+
+    .cpill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--blush-deep);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: .75rem;
+      letter-spacing: .5px;
+      color: var(--bark);
+      font-weight: 500;
+      transition: all .3s;
+      background: var(--ivory);
+      margin: 4px
+    }
+
+    .cpill i {
+      color: var(--gold);
+      font-size: .9rem
+    }
+
+    .cpill:hover {
+      background: var(--blush);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(155, 110, 56, .15)
+    }
+
+    .btn-abt {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bark);
+      color: var(--gold-light);
+      border-radius: 50px;
+      padding: 14px 38px;
+      font-size: .74rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .3s;
+      box-shadow: 0 8px 24px rgba(20, 12, 6, .18)
+    }
+
+    .btn-abt:hover {
+      background: var(--gold-dark);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(155, 110, 56, .38)
+    }
+
+    /* ════ SERVICES ════ */
+    #services {
+      padding: 130px 0;
+      background: var(--deep);
+      position: relative;
+      overflow: hidden
+    }
+
+    #services::before {
+      content: 'BEAUTY';
+      position: absolute;
+      bottom: -40px;
+      right: -60px;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 12rem;
+      color: rgba(255, 255, 255, .015);
+      line-height: 1;
+      pointer-events: none;
+      letter-spacing: 10px
+    }
+
+    .srv-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 52px
+    }
+
+    .stab {
+      font-size: .7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(200, 150, 92, .28);
+      color: rgba(255, 255, 255, .45);
+      background: transparent;
+      cursor: pointer;
+      transition: all .3s;
+      font-family: 'Raleway', sans-serif
+    }
+
+    .stab.active,
+    .stab:hover {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 22px rgba(155, 110, 56, .38)
+    }
+
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px
+    }
+
+    .sc {
+      background: rgba(255, 255, 255, .042);
+      border: 1px solid rgba(200, 150, 92, .13);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: all .45s;
+      display: none
+    }
+
+    .sc.show {
+      display: flex;
+      flex-direction: column
+    }
+
+    .sc:hover {
+      border-color: rgba(200, 150, 92, .5);
+      transform: translateY(-9px);
+      box-shadow: 0 28px 68px rgba(0, 0, 0, .45)
+    }
+
+    .sc-img {
+      width: 100%;
+      height: 218px;
+      object-fit: cover;
+      transition: transform .6s ease;
+      display: block
+    }
+
+    .sc:hover .sc-img {
+      transform: scale(1.06)
+    }
+
+    .sc-body {
+      padding: 26px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column
+    }
+
+    .sc-icon {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 15px;
+      box-shadow: 0 6px 18px rgba(155, 110, 56, .38);
+      transition: transform .4s
+    }
+
+    .sc:hover .sc-icon {
+      transform: rotate(8deg) scale(1.1)
+    }
+
+    .sc h5 {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px
+    }
+
+    .sc p {
+      font-size: .83rem;
+      color: rgba(255, 255, 255, .48);
+      line-height: 1.82;
+      flex: 1
+    }
+
+    .sc-price {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.7rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-top: 14px
+    }
+
+    .sc-dur {
+      font-size: .67rem;
+      color: rgba(255, 255, 255, .28);
+      letter-spacing: 1px;
+      margin-top: 3px
+    }
+
+    .sc-ribbon {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #fff;
+      font-size: .6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px
+    }
+
+    /* ════ GALLERY ════ */
+    #gallery {
+      padding: 130px 0;
+      background: var(--cream)
+    }
+
+    .gal-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 44px 0
+    }
+
+    .gbtn {
+      font-size: .68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 50px;
+      border: 1px solid var(--blush-deep);
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: all .3s;
+      font-family: 'Raleway', sans-serif
+    }
+
+    .gbtn.active,
+    .gbtn:hover {
+      background: var(--bark);
+      color: var(--gold-light);
+      border-color: var(--bark)
+    }
+
+    /* MASONRY */
+    .gal-masonry {
+      columns: 3;
+      column-gap: 14px
+    }
+
+    .gi {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: pointer;
+      display: block
+    }
+
+    .gi img {
+      width: 100%;
+      display: block;
+      transition: transform .65s cubic-bezier(.25, .46, .45, .94)
+    }
+
+    .gi:hover img {
+      transform: scale(1.08)
+    }
+
+    .gh {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20, 12, 6, .92) 0%, rgba(20, 12, 6, .18) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity .38s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px
+    }
+
+    .gi:hover .gh {
+      opacity: 1
+    }
+
+    .gh .gc {
+      font-size: .6rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 4px
+    }
+
+    .gh .gn {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.05rem;
+      color: #fff;
+      font-weight: 600
+    }
+
+    .gh .gz {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .88rem;
+      backdrop-filter: blur(4px);
+      transition: background .3s
+    }
+
+    .gh:hover .gz {
+      background: var(--gold)
+    }
+
+    .gi.hidden {
+      display: none
+    }
+
+    /* LIGHTBOX */
+    #lbMod .modal-content {
+      background: #0a0602;
+      border: 1px solid rgba(200, 150, 92, .18);
+      border-radius: 16px;
+      overflow: hidden
+    }
+
+    #lbMod .modal-body {
+      padding: 0;
+      position: relative
+    }
+
+    #lbMod img {
+      width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      display: block
+    }
+
+    .lb-cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 22px;
+      background: linear-gradient(to top, rgba(10, 6, 2, .9), transparent);
+      color: rgba(255, 255, 255, .75);
+      font-size: .8rem;
+      letter-spacing: 1px
+    }
+
+    .lb-x {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .1);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .88rem;
+      cursor: pointer;
+      z-index: 5;
+      transition: background .3s;
+      backdrop-filter: blur(4px)
+    }
+
+    .lb-x:hover {
+      background: var(--gold)
+    }
+
+    /* ════ TESTIMONIALS ════ */
+    #testi {
+      padding: 130px 0;
+      background: var(--bark);
+      position: relative;
+      overflow: hidden
+    }
+
+    #testi::before {
+      content: '"';
+      font-family: 'Cormorant Upright', serif;
+      font-size: 28rem;
+      color: rgba(255, 255, 255, .018);
+      position: absolute;
+      top: -60px;
+      left: -30px;
+      line-height: 1;
+      pointer-events: none
+    }
+
+    .tc {
+      background: rgba(255, 255, 255, .052);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 20px;
+      padding: 36px 30px;
+      height: 100%;
+      position: relative;
+      transition: all .4s
+    }
+
+    .tc:hover {
+      border-color: rgba(200, 150, 92, .38);
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, .08)
+    }
+
+    .tc-stars {
+      color: var(--gold);
+      font-size: .85rem;
+      margin-bottom: 15px;
+      letter-spacing: 3px
+    }
+
+    .tc-txt {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, .72);
+      line-height: 1.92;
+      margin-bottom: 24px;
+      font-weight: 300
+    }
+
+    .tc-av {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold)
+    }
+
+    .tc-name {
+      font-weight: 700;
+      font-size: .88rem;
+      color: #fff
+    }
+
+    .tc-role {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, .38);
+      letter-spacing: .5px
+    }
+
+    /* ════ CTA BAND ════ */
+    #cta {
+      padding: 110px 0;
+      background: linear-gradient(140deg, var(--gold-dark), var(--gold) 50%, #d8ad72);
+      position: relative;
+      overflow: hidden
+    }
+
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, .1) 1px, transparent 1px);
+      background-size: 32px 32px
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Upright', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.08
+    }
+
+    .cta-title em {
+      font-style: italic;
+      font-weight: 300
+    }
+
+    .cta-sub {
+      color: rgba(255, 255, 255, .78);
+      font-size: .95rem;
+      line-height: 1.95;
+      font-weight: 300;
+      margin-top: 16px
+    }
+
+    .btn-cta-w {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--gold-dark);
+      border-radius: 50px;
+      padding: 16px 46px;
+      font-size: .74rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .22);
+      transition: all .35s;
+      border: none;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif
+    }
+
+    .btn-cta-w:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .3);
+      color: var(--gold-dark)
+    }
+
+    .btn-cta-t {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, .18);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .4);
+      border-radius: 50px;
+      padding: 15px 36px;
+      font-size: .74rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .35s;
+      font-family: 'Raleway', sans-serif;
+      cursor: pointer
+    }
+
+    .btn-cta-t:hover {
+      background: rgba(255, 255, 255, .28);
+      color: #fff
+    }
+
+    /* ════ CONTACT ════ */
+    #contact {
+      padding: 130px 0;
+      background: var(--ivory)
+    }
+
+    .cw {
+      background: var(--cream);
+      border-radius: 28px;
+      box-shadow: 0 24px 80px rgba(60, 20, 5, .09);
+      overflow: hidden
+    }
+
+    .c-side {
+      background: linear-gradient(160deg, var(--bark), var(--charcoal));
+      padding: 56px 42px;
+      height: 100%
+    }
+
+    .c-brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+      margin-bottom: 28px
+    }
+
+    .c-side h3 {
+      font-family: 'Cormorant Upright', serif;
+      font-size: 1.85rem;
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px
+    }
+
+    .c-side p {
+      color: rgba(255, 255, 255, .48);
+      font-size: .86rem;
+      line-height: 1.9;
+      margin-bottom: 34px
+    }
+
+    .ci {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px
+    }
+
+    .ci-ic {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      background: rgba(200, 150, 92, .14);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: .95rem
+    }
+
+    .ci-lbl {
+      font-size: .6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700
+    }
+
+    .ci-val {
+      font-size: .86rem;
+      color: rgba(255, 255, 255, .65);
+      margin-top: 2px
+    }
+
+    .soc-r {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px
+    }
+
+    .soc-a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(200, 150, 92, .1);
+      border: 1px solid rgba(200, 150, 92, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: .94rem;
+      text-decoration: none;
+      transition: all .3s
+    }
+
+    .soc-a:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+      transform: translateY(-3px)
+    }
+
+    .c-form {
+      padding: 52px 48px
+    }
+
+    .form-label {
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 7px;
+      display: block
+    }
+
+    .form-control,
+    .form-select {
+      border: 1.5px solid var(--blush-deep);
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: .9rem;
+      background: #fff;
+      color: var(--deep);
+      transition: all .3s;
+      font-family: 'Raleway', sans-serif
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200, 150, 92, .11);
+      outline: none
+    }
+
+    .form-control::placeholder {
+      color: rgba(122, 92, 72, .38)
+    }
+
+    .btn-sub {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 16px;
+      font-size: .74rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(155, 110, 56, .4);
+      transition: all .35s;
+      font-family: 'Raleway', sans-serif
+    }
+
+    .btn-sub:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(155, 110, 56, .54)
+    }
+
+    /* ════ FOOTER ════ */
+    footer {
+      background: var(--charcoal);
+      padding: 80px 0 28px
+    }
+
+    .f-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold-light);
+      letter-spacing: 1px
+    }
+
+    .f-tagline {
+      font-family: 'Cormorant Upright', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, .32);
+      margin-top: 5px
+    }
+
+    .f-desc {
+      font-size: .8rem;
+      color: rgba(255, 255, 255, .28);
+      line-height: 1.92;
+      margin-top: 14px;
+      max-width: 290px
+    }
+
+    .f-head {
+      font-size: .66rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 18px
+    }
+
+    .f-link {
+      display: block;
+      color: rgba(255, 255, 255, .38);
+      text-decoration: none;
+      font-size: .83rem;
+      margin-bottom: 10px;
+      transition: color .3s
+    }
+
+    .f-link:hover {
+      color: var(--gold-light)
+    }
+
+    footer hr {
+      border-color: rgba(255, 255, 255, .065);
+      margin: 48px 0 20px
+    }
+
+    .f-copy {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, .22);
+      text-align: center
+    }
+
+    .f-copy span {
+      color: var(--gold)
+    }
+
+    /* TOAST */
+    .tw {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99998;
+      display: none;
+      animation: tin .4s ease
+    }
+
+    @keyframes tin {
+      from {
+        transform: translateX(80px);
+        opacity: 0
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1
+      }
+    }
+
+    .ti {
+      background: linear-gradient(135deg, var(--bark), var(--charcoal));
+      border: 1px solid rgba(200, 150, 92, .28);
+      color: #fff;
+      border-radius: 16px;
+      padding: 18px 24px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+      max-width: 320px;
+      font-size: .87rem;
+      line-height: 1.6
+    }
+
+    .ti.err {
+      background: linear-gradient(135deg, #7a1a1a, #4a0f0f);
+      border-color: rgba(200, 80, 80, .3)
+    }
+
+    /* FLOAT WA */
+    .fwa {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 800;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      text-decoration: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, .5);
+      transition: all .3s;
+      animation: bIn .5s ease
+    }
+
+    .fwa.show {
+      display: flex
+    }
+
+    .fwa:hover {
+      transform: scale(1.12);
+      color: #fff
+    }
+
+    @keyframes bIn {
+      from {
+        transform: scale(0)
+      }
+
+      to {
+        transform: scale(1)
+      }
+    }
+
+    /* REVEAL */
+    .rv {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all .75s cubic-bezier(.25, .46, .45, .94)
+    }
+
+    .rv.v {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .rv.rl {
+      transform: translateX(-55px)
+    }
+
+    .rv.rr {
+      transform: translateX(55px)
+    }
+
+    .rv.rl.v,
+    .rv.rr.v {
+      transform: translateX(0)
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:991px) {
+      .abt-wrap {
+        padding: 0;
+        margin-top: 50px
+      }
+
+      .srv-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .gal-masonry {
+        columns: 2
+      }
+
+      .c-side {
+        padding: 44px 28px
+      }
+
+      .c-form {
+        padding: 40px 26px
+      }
+    }
+
+    @media(max-width:576px) {
+      .srv-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero-nums {
+        gap: 18px
+      }
+
+      .btn-hg {
+        margin-left: 0;
+        margin-top: 12px
+      }
+
+      .c-form {
+        padding: 28px 18px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ld-name">Priya's Makeover</div>
+    <div class="ld-sub">Luxury Beauty Studio · Kolkata</div>
+    <div class="ld-bar"></div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cur-d" id="cd"></div>
+  <div class="cur-r" id="cr"></div>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav class="navbar navbar-expand-lg" id="nav">
+    <div class="container">
+      <a class="navbar-brand" href="#hero">Priya's <em>Makeover</em></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nm">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nm">
+        <ul class="navbar-nav ms-auto align-items-center gap-1">
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li><a class="nav-link" href="#testi">Reviews</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="ms-2"><a class="nav-link btn-nbook" href="#contact">Book Now</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════ HERO ════ -->
+  <section id="hero">
+    <div id="hc" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="5500">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#hc" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#hc" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#hc" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active s1">
+          <div class="hero-bg"></div>
+          <div class="hero-vignette"></div>
+          <div class="container hero-content">
+            <div class="col-lg-7">
+              <div class="h-eyebrow">Award-Winning Beauty Artist</div>
+              <h1 class="hero-title">You Deserve to<br><span class="il">Feel Breathtaking</span></h1>
+              <div class="h-line"></div>
+              <p class="hero-sub">Step into a world where beauty is an art form and every session is a luxury experience
+                crafted exclusively for <em>you</em>. Priya Bera transforms faces — and confidence.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="#contact" class="btn-hp"><i class="bi bi-calendar-heart"></i> Book Your Session</a>
+                <a href="#services" class="btn-hg"><i class="bi bi-grid-3x3-gap"></i> Explore Services</a>
+              </div>
+              <div class="hero-nums">
+                <div>
+                  <div class="hn-v">8<span style="font-size:1.4rem">+</span></div>
+                  <div class="hn-l">Years Expert</div>
+                </div>
+                <div class="hn-sep"></div>
+                <div>
+                  <div class="hn-v">1.2k</div>
+                  <div class="hn-l">Happy Brides</div>
+                </div>
+                <div class="hn-sep"></div>
+                <div>
+                  <div class="hn-v">50+</div>
+                  <div class="hn-l">Services</div>
+                </div>
+                <div class="hn-sep"></div>
+                <div>
+                  <div class="hn-v">4.9<span style="font-size:1.4rem">★</span></div>
+                  <div class="hn-l">Rating</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item s2">
+          <div class="hero-bg"></div>
+          <div class="hero-vignette"></div>
+          <div class="container hero-content">
+            <div class="col-lg-7">
+              <div class="h-eyebrow">Kolkata's Most Trusted Bridal Artist</div>
+              <h1 class="hero-title">Your Wedding,<br><span class="il">Your Masterpiece</span></h1>
+              <div class="h-line"></div>
+              <p class="hero-sub">Every bride has a unique story. Priya listens, understands your vision, and crafts a
+                bridal look so stunning — it will leave the entire mandap speechless.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="#contact" class="btn-hp"><i class="bi bi-stars"></i> Bridal Enquiry</a>
+                <a href="#gallery" class="btn-hg"><i class="bi bi-images"></i> View Portfolio</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item s3">
+          <div class="hero-bg"></div>
+          <div class="hero-vignette"></div>
+          <div class="container hero-content">
+            <div class="col-lg-7">
+              <div class="h-eyebrow">Premium Skincare &amp; Wellness</div>
+              <h1 class="hero-title">Glow Like You<br><span class="il">Always Dreamed</span></h1>
+              <div class="h-line"></div>
+              <p class="hero-sub">Science-backed skincare, luxury facials, and personalised beauty rituals that awaken
+                your skin's natural radiance and make you fall in love with yourself.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="#services" class="btn-hp"><i class="bi bi-droplet-fill"></i> Discover Treatments</a>
+                <a href="#about" class="btn-hg"><i class="bi bi-person-heart"></i> Meet Priya</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hc" data-bs-slide="prev"><span
+          class="carousel-control-prev-icon"></span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hc" data-bs-slide="next"><span
+          class="carousel-control-next-icon"></span></button>
+    </div>
+    <div class="hero-scroll">Scroll<div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ════ ABOUT ════ -->
+  <section id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 text-center rv rl">
+          <div class="about-frame d-inline-block">
+            <img src="./priya.jpg" alt="Priya Bera" />
+            <div class="exp-badge">
+              <div class="n">8+</div>
+              <div class="t">Years of<br>Excellence</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 rv rr">
+          <div class="abt-wrap">
+            <p class="eyebrow">✦ The Artist Behind Every Look</p>
+            <h2 class="sec-title">Hello, I'm <em>Priya Bera</em><br>Your Beauty Confidante</h2>
+            <div class="gold-rule"></div>
+            <p class="abt-p">With over <strong>8 years of mastery</strong>, I've transformed thousands of faces and —
+              more importantly — thousands of smiles. My studio is a sanctuary where every woman who walks in leaves
+              feeling <strong>completely unstoppable.</strong></p>
+            <p class="abt-p">I trained under internationally acclaimed artists and blend traditional Indian bridal
+              artistry with contemporary techniques that photograph and feel truly extraordinary. Every look I create is
+              a story — <em>your</em> story.</p>
+            <p class="abt-p">Whether it's your wedding day, a grand celebration, or simply a Tuesday when you decide you
+              deserve to look and feel phenomenal — I'm here to make that happen, with absolute dedication.</p>
+            <div class="mt-3 mb-4">
+              <span class="cpill"><i class="bi bi-patch-check-fill"></i> Internationally Certified</span>
+              <span class="cpill"><i class="bi bi-award-fill"></i> Bridal Specialist</span>
+              <span class="cpill"><i class="bi bi-heart-fill"></i> 1200+ Happy Clients</span>
+              <span class="cpill"><i class="bi bi-camera-fill"></i> Editorial Expert</span>
+              <span class="cpill"><i class="bi bi-stars"></i> Skincare Analyst</span>
+              <span class="cpill"><i class="bi bi-scissors"></i> Hair Sculptor</span>
+            </div>
+            <a href="#contact" class="btn-abt"><i class="bi bi-calendar-heart-fill"></i> Let's Create Your Look</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ SERVICES ════ -->
+  <section id="services">
+    <div class="container">
+      <div class="text-center mb-4 rv">
+        <p class="eyebrow" style="color:var(--gold)">✦ What I Offer</p>
+        <h2 class="sec-title" style="color:#fff">Signature <em style="color:var(--gold-light)">Beauty Services</em></h2>
+        <div class="gold-rule cx"></div>
+        <p style="color:rgba(255,255,255,.42);font-size:.9rem;max-width:500px;margin:16px auto 0;line-height:1.95">Each
+          service is a bespoke experience — tailored, luxurious, and designed to make you feel genuinely extraordinary
+          from the inside out.</p>
+      </div>
+      <div class="srv-tabs rv" id="stabs">
+        <button class="stab active" onclick="fSrv('all',this)">All Services</button>
+        <button class="stab" onclick="fSrv('bridal',this)">Bridal</button>
+        <button class="stab" onclick="fSrv('skin',this)">Skincare</button>
+        <button class="stab" onclick="fSrv('hair',this)">Hair</button>
+        <button class="stab" onclick="fSrv('nails',this)">Nails &amp; Spa</button>
+        <button class="stab" onclick="fSrv('makeup',this)">Makeup</button>
+      </div>
+      <div class="srv-grid" id="sgrid">
+        <div class="sc show rv" data-cat="bridal">
+          <div class="sc-ribbon">⭐ Most Popular</div>
+          <img class="sc-img" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=85"
+            alt="Bridal" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-stars"></i></div>
+            <h5>Grand Bridal Makeover</h5>
+            <p>A complete head-to-toe transformation for your most magical day — HD flawless makeup, intricate hairdo, 2
+              trial sessions, and everything to make you look like a dream.</p>
+            <div class="sc-price">Starting ₹6,999</div>
+            <div class="sc-dur">⏱ 4–6 Hours &nbsp;·&nbsp; 2 trial sessions included</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="skin">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=85" alt="Facial" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-droplet-fill"></i></div>
+            <h5>Luxury 24K Gold Facial</h5>
+            <p>24K gold-infused facial with dermabrasion, gua-sha stone massage, LED therapy, and a custom hydrating
+              mask. Skin so luminous, it glows for weeks.</p>
+            <div class="sc-price">Starting ₹2,499</div>
+            <div class="sc-dur">⏱ 90 Minutes &nbsp;·&nbsp; Gua-sha massage included</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="hair">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=85" alt="Hair" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-scissors"></i></div>
+            <h5>Artisan Hair Styling</h5>
+            <p>Elegant braids, romantic waves, structured updos — every hairstyle is sculpted to complement your bone
+              structure, outfit, and personality flawlessly.</p>
+            <div class="sc-price">Starting ₹899</div>
+            <div class="sc-dur">⏱ 45–90 Minutes</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="makeup">
+          <div class="sc-ribbon">✨ Trending</div>
+          <img class="sc-img" src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=85"
+            alt="Party" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-brush-fill"></i></div>
+            <h5>Party Glam Makeup</h5>
+            <p>Sultry smoky eyes, sculpted contours, or soft dewy glam — you'll be absolutely the most radiant person in
+              every room. 12-hour wear formula.</p>
+            <div class="sc-price">Starting ₹2,199</div>
+            <div class="sc-dur">⏱ 60–90 Minutes &nbsp;·&nbsp; 12-hr formula</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="nails">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=85"
+            alt="Nails" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-gem"></i></div>
+            <h5>Nail Art &amp; Luxury Spa</h5>
+            <p>3D florals, minimalist nudes, gel extensions with crystals — paired with a deeply relaxing foot and hand
+              spa ritual that leaves you completely renewed.</p>
+            <div class="sc-price">Starting ₹599</div>
+            <div class="sc-dur">⏱ 60 Minutes &nbsp;·&nbsp; Spa ritual included</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="bridal">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=85"
+            alt="Pre-Wedding" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-camera2"></i></div>
+            <h5>Pre-Wedding Shoot Look</h5>
+            <p>Multiple outfit-coordinated looks for your photography session — ensuring every frame looks cinematic,
+              effortlessly timeless, and deeply personal.</p>
+            <div class="sc-price">Starting ₹4,499</div>
+            <div class="sc-dur">⏱ Full Day &nbsp;·&nbsp; Multiple outfit looks</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="skin">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=85"
+            alt="Anti-Ageing" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-flower1"></i></div>
+            <h5>Anti-Ageing Ritual</h5>
+            <p>Collagen-boosting peptide infusion, microcurrent facial therapy, and Ayurvedic herbal oils. Restore
+              youth, firmness, and that inner radiance you deserve.</p>
+            <div class="sc-price">Starting ₹3,299</div>
+            <div class="sc-dur">⏱ 2 Hours &nbsp;·&nbsp; Weekly package available</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="makeup">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=85"
+            alt="Airbrush" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-wind"></i></div>
+            <h5>Airbrush Makeup</h5>
+            <p>Featherlight, flawless airbrush application built for cameras and stages. Looks like perfect skin —
+              because you deserve nothing less than impossible perfection.</p>
+            <div class="sc-price">Starting ₹3,499</div>
+            <div class="sc-dur">⏱ 90 Minutes &nbsp;·&nbsp; Photo-ready &amp; HD finish</div>
+          </div>
+        </div>
+        <div class="sc show rv" data-cat="hair">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=85"
+            alt="Keratin" />
+          <div class="sc-body">
+            <div class="sc-icon"><i class="bi bi-moisture"></i></div>
+            <h5>Keratin &amp; Deep Hair Spa</h5>
+            <p>Brazilian smoothing keratin, deep conditioning, and a relaxing scalp therapy — leaving your hair glossy,
+              frizz-free, and impossibly weightless for months.</p>
+            <div class="sc-price">Starting ₹2,499</div>
+            <div class="sc-dur">⏱ 3 Hours &nbsp;·&nbsp; Lasts 3–4 months</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ GALLERY ════ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="text-center rv">
+        <p class="eyebrow">✦ Portfolio</p>
+        <h2 class="sec-title">Where Every Face Becomes a <em>Canvas</em></h2>
+        <div class="gold-rule cx"></div>
+        <p style="color:var(--muted);font-size:.9rem;margin:18px auto 0;max-width:500px;line-height:1.95">Real clients,
+          real transformations. Every look is a testament to what's possible when artistry meets pure passion.</p>
+      </div>
+      <div class="gal-filter rv" id="galFilter">
+        <button class="gbtn active" onclick="fGal('all',this)">All Work</button>
+        <button class="gbtn" onclick="fGal('bridal',this)">Bridal</button>
+        <button class="gbtn" onclick="fGal('glam',this)">Glam</button>
+        <button class="gbtn" onclick="fGal('skin',this)">Skincare</button>
+        <button class="gbtn" onclick="fGal('hair',this)">Hair</button>
+        <button class="gbtn" onclick="fGal('nails',this)">Nails</button>
+      </div>
+      <div class="gal-masonry rv" id="galGrid">
+        <div class="gi" data-cat="bridal"
+          onclick="lb('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1400&q=90','Bridal Makeover — Elegance in Bloom')">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500&q=85" alt="Bridal" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Bridal Makeover</div>
+            <div class="gn">Elegance in Bloom</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="skin"
+          onclick="lb('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1400&q=90','Luxury Skincare — Golden Hour Glow')">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=85" alt="Skin" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Luxury Skincare</div>
+            <div class="gn">Golden Hour Glow</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="glam"
+          onclick="lb('https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1400&q=90','Party Glam — Midnight Radiance')">
+          <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=500&q=85" alt="Glam" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Party Glam</div>
+            <div class="gn">Midnight Radiance</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="nails"
+          onclick="lb('https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1400&q=90','Nail Art — Petal Dreams')">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=85" alt="Nails" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Nail Art</div>
+            <div class="gn">Petal Dreams</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="hair"
+          onclick="lb('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1400&q=90','Hair Styling — Waterfall Braid')">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=85" alt="Hair" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Hair Styling</div>
+            <div class="gn">Waterfall Braid</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="bridal"
+          onclick="lb('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1400&q=90','Editorial Bridal — Jewel of the Evening')">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=500&q=85" alt="Bridal 2" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Editorial Bridal</div>
+            <div class="gn">Jewel of the Evening</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="glam"
+          onclick="lb('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=1400&q=90','Airbrush Glam — Velvet Kiss')">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=85" alt="Glam 2" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Airbrush Glam</div>
+            <div class="gn">Velvet Kiss</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="skin"
+          onclick="lb('https://images.unsplash.com/photo-1552693673-1bf958298935?w=1400&q=90','Facial — Dewy Perfection')">
+          <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=500&q=85" alt="Facial" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Facial Treatment</div>
+            <div class="gn">Dewy Perfection</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="hair"
+          onclick="lb('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1400&q=90','Hair Styling — Golden Waves')">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=85" alt="Hair 2" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Hair Styling</div>
+            <div class="gn">Golden Waves</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="bridal"
+          onclick="lb('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1400&q=90','Bridal — Rose of Kolkata')">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=85" alt="Bridal 3" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Bridal Makeover</div>
+            <div class="gn">Rose of Kolkata</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="nails"
+          onclick="lb('https://images.unsplash.com/photo-1521577352947-9bb58764b69a?w=1400&q=90','Nail Extension — Crystal Garden')">
+          <img src="https://images.unsplash.com/photo-1521577352947-9bb58764b69a?w=500&q=85" alt="Nails 2" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Nail Extension</div>
+            <div class="gn">Crystal Garden</div>
+          </div>
+        </div>
+        <div class="gi" data-cat="glam"
+          onclick="lb('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1400&q=90','Evening Glam — Celestial Beauty')">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=85" alt="Glam 3" />
+          <div class="gh">
+            <div class="gz"><i class="bi bi-zoom-in"></i></div>
+            <div class="gc">Evening Glam</div>
+            <div class="gn">Celestial Beauty</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="modal fade" id="lbMod" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button class="lb-x" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+          <img id="lbImg" src="" alt="" />
+          <div class="lb-cap" id="lbCap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ TESTIMONIALS ════ -->
+  <section id="testi">
+    <div class="container">
+      <div class="text-center mb-5 rv">
+        <p class="eyebrow" style="color:var(--gold)">✦ Client Stories</p>
+        <h2 class="sec-title" style="color:#fff">They Walked In Beautiful.<br><em style="color:var(--gold-light)">They
+            Left Unstoppable.</em></h2>
+        <div class="gold-rule cx"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 rv">
+          <div class="tc">
+            <div class="tc-stars">★★★★★</div>
+            <p class="tc-txt">"I cried happy tears when I first saw myself on my wedding day. Priya didn't just do my
+              makeup — she made me feel like the most beautiful woman in the entire world. Every single guest stopped to
+              compliment me all evening long."</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="tc-av" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Ria" />
+              <div>
+                <div class="tc-name">Ria Chakraborty</div>
+                <div class="tc-role">Bride · South Kolkata</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="tc">
+            <div class="tc-stars">★★★★★</div>
+            <p class="tc-txt">"My skin was a complete mess before I found Priya. After just 4 sessions of her gold
+              facial treatment, my colleagues started asking what I was using. She's a true miracle worker — I've never
+              felt more confident in my own skin."</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="tc-av" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
+                alt="Ananya" />
+              <div>
+                <div class="tc-name">Ananya Mukherjee</div>
+                <div class="tc-role">Regular Client · 2 years</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 rv">
+          <div class="tc">
+            <div class="tc-stars">★★★★★</div>
+            <p class="tc-txt">"Our pre-wedding photos look straight out of a Bollywood film. Priya created 4 completely
+              different looks and each was more stunning than the last. She is so professional, so calming, and so
+              incredibly talented. Book her immediately."</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="tc-av" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=100&q=80"
+                alt="Sohini" />
+              <div>
+                <div class="tc-name">Sohini Das</div>
+                <div class="tc-role">Pre-Wedding Client</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CTA BAND ════ -->
+  <section id="cta">
+    <div class="container text-center position-relative rv">
+      <p
+        style="font-size:.66rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700;margin-bottom:14px">
+        ✦ Your Transformation Awaits</p>
+      <h2 class="cta-title">You Are One Booking Away<br>From <em>Feeling Absolutely Radiant</em></h2>
+      <p class="cta-sub mx-auto" style="max-width:520px">Don't wait for a special occasion to feel special. Every single
+        day is a reason to celebrate your beauty. Let Priya make it utterly extraordinary.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
+        <button class="btn-cta-w" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <i class="bi bi-calendar-heart-fill"></i> Book Your Session Today
+        </button>
+        <a href="tel:+919876543210" class="btn-cta-t">
+          <i class="bi bi-telephone-fill"></i> Call Priya Now
+        </a>
+      </div>
+      <p style="color:rgba(255,255,255,.58);font-size:.76rem;margin-top:22px;letter-spacing:.5px">📍 Salt Lake, Kolkata
+        &nbsp;·&nbsp; Mon–Sat: 9 AM – 8 PM &nbsp;·&nbsp; +91 98765 43210</p>
+    </div>
+  </section>
+
+  <!-- ════ CONTACT ════ -->
+  <section id="contact">
+    <div class="container rv">
+      <div class="text-center mb-5">
+        <p class="eyebrow">✦ Get In Touch</p>
+        <h2 class="sec-title">Book Your <em>Luxury Session</em></h2>
+        <div class="gold-rule cx"></div>
+      </div>
+      <div class="cw">
+        <div class="row g-0">
+          <div class="col-lg-4">
+            <div class="c-side">
+              <div class="c-brand">Priya's Makeover</div>
+              <h3>Let's Create<br>Something Beautiful</h3>
+              <p>Fill in the form or reach out directly. I personally respond to every single enquiry and would
+                genuinely love to be part of your most beautiful moments.</p>
+              <div class="ci">
+                <div class="ci-ic"><i class="bi bi-geo-alt-fill"></i></div>
+                <div>
+                  <div class="ci-lbl">Studio</div>
+                  <div class="ci-val">Salt Lake, Kolkata – 700064</div>
+                </div>
+              </div>
+              <div class="ci">
+                <div class="ci-ic"><i class="bi bi-telephone-fill"></i></div>
+                <div>
+                  <div class="ci-lbl">Phone / WhatsApp</div>
+                  <div class="ci-val">+91 98765 43210</div>
+                </div>
+              </div>
+              <div class="ci">
+                <div class="ci-ic"><i class="bi bi-envelope-fill"></i></div>
+                <div>
+                  <div class="ci-lbl">Email</div>
+                  <div class="ci-val">priya@priyasmakeover.com</div>
+                </div>
+              </div>
+              <div class="ci">
+                <div class="ci-ic"><i class="bi bi-clock-fill"></i></div>
+                <div>
+                  <div class="ci-lbl">Studio Hours</div>
+                  <div class="ci-val">Mon – Sat: 9 AM – 8 PM</div>
+                </div>
+              </div>
+              <div class="soc-r">
+                <a href="#" class="soc-a"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="soc-a"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="soc-a"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="soc-a"><i class="bi bi-pinterest"></i></a>
+                <a href="#" class="soc-a"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="c-form">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Full Name *</label><input type="text"
+                    class="form-control" id="fn" placeholder="Your full name" /></div>
+                <div class="col-md-6"><label class="form-label">Email Address *</label><input type="email"
+                    class="form-control" id="fe" placeholder="your@email.com" /></div>
+                <div class="col-md-6"><label class="form-label">Phone / WhatsApp</label><input type="tel"
+                    class="form-control" id="fp" placeholder="+91 XXXXX XXXXX" /></div>
+                <div class="col-md-6">
+                  <label class="form-label">Service Required</label>
+                  <select class="form-select" id="fs">
+                    <option value="">Choose a service…</option>
+                    <option>Grand Bridal Makeover</option>
+                    <option>Luxury Gold Facial</option>
+                    <option>Party Glam Makeup</option>
+                    <option>Artisan Hair Styling</option>
+                    <option>Nail Art & Luxury Spa</option>
+                    <option>Pre-Wedding Shoot Look</option>
+                    <option>Airbrush Makeup</option>
+                    <option>Anti-Ageing Ritual</option>
+                    <option>Keratin & Deep Hair Spa</option>
+                    <option>Other / Custom</option>
+                  </select>
+                </div>
+                <div class="col-md-6"><label class="form-label">Preferred Date</label><input type="date"
+                    class="form-control" id="fd" /></div>
+                <div class="col-md-6">
+                  <label class="form-label">Budget Range</label>
+                  <select class="form-select" id="fb">
+                    <option value="">Select budget…</option>
+                    <option>Under ₹1,500</option>
+                    <option>₹1,500 – ₹5,000</option>
+                    <option>₹5,000 – ₹10,000</option>
+                    <option>₹10,000 – ₹20,000</option>
+                    <option>₹20,000+</option>
+                  </select>
+                </div>
+                <div class="col-12"><label class="form-label">Tell Me About Your Vision *</label><textarea
+                    class="form-control" id="fm" rows="4"
+                    placeholder="Describe your occasion, the look you're dreaming of, any references, and your skin type or preferences…"></textarea>
+                </div>
+                <div class="col-12"><button class="btn-sub" onclick="sendEnq()"><i class="bi bi-send-fill me-2"></i>
+                    Send My Enquiry</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <div class="f-logo">Priya's Makeover</div>
+          <div class="f-tagline">Beauty is an art. Let's create yours.</div>
+          <p class="f-desc">Kolkata's most trusted luxury beauty studio for brides, parties, and everyday queens who
+            believe they deserve the absolute best — because they do.</p>
+          <div class="soc-r mt-4">
+            <a href="#" class="soc-a"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="soc-a"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="soc-a"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="soc-a"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-2 offset-lg-1">
+          <div class="f-head">Navigate</div>
+          <a class="f-link" href="#about">About Priya</a>
+          <a class="f-link" href="#services">Services</a>
+          <a class="f-link" href="#gallery">Gallery</a>
+          <a class="f-link" href="#testi">Reviews</a>
+          <a class="f-link" href="#contact">Contact</a>
+        </div>
+        <div class="col-sm-4 col-lg-2">
+          <div class="f-head">Services</div>
+          <a class="f-link" href="#services">Bridal Makeover</a>
+          <a class="f-link" href="#services">Luxury Facial</a>
+          <a class="f-link" href="#services">Hair Styling</a>
+          <a class="f-link" href="#services">Nail Art</a>
+          <a class="f-link" href="#services">Airbrush Makeup</a>
+        </div>
+        <div class="col-sm-4 col-lg-3">
+          <div class="f-head">Stay Beautiful</div>
+          <p style="font-size:.78rem;color:rgba(255,255,255,.3);margin-bottom:14px;line-height:1.8">Get beauty tips,
+            seasonal offers, and priority booking alerts.</p>
+          <div class="input-group">
+            <input type="email" id="nlE" class="form-control" placeholder="Your email"
+              style="background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:50px 0 0 50px;color:#fff;font-size:.8rem;padding:10px 18px" />
+            <button onclick="subscribe()"
+              style="background:var(--gold);border:none;border-radius:0 50px 50px 0;padding:10px 18px;color:#fff;font-size:.75rem;cursor:pointer;font-weight:700;font-family:'Raleway',sans-serif">Go</button>
+          </div>
+        </div>
+      </div>
+      <hr style="border-color:rgba(255,255,255,.06);margin:50px 0 20px" />
+      <div class="f-copy">© 2025 <span>Priya's Makeover</span>. Crafted with <span>♥</span> for beauty lovers in Kolkata
+        &amp; beyond.</div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp float -->
+  <a href="https://wa.me/919876543210?text=Hello+Priya!+I'd+love+to+book+a+session." target="_blank" class="fwa"
+    id="fwa"><i class="bi bi-whatsapp"></i></a>
+
+  <!-- Toast -->
+  <div class="tw" id="tw">
+    <div class="ti" id="ti"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    /* LOADER */
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('gone'), 1100));
+
+    /* CURSOR */
+    const cd = document.getElementById('cd'), cr = document.getElementById('cr');
+    document.addEventListener('mousemove', e => {
+      cd.style.left = cr.style.left = e.clientX + 'px';
+      cd.style.top = cr.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button,.gi,.sc,.cpill').forEach(el => {
+      el.addEventListener('mouseenter', () => cr.classList.add('big'));
+      el.addEventListener('mouseleave', () => cr.classList.remove('big'));
+    });
+
+    /* NAVBAR */
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', scrollY > 55);
+      document.getElementById('fwa').classList.toggle('show', scrollY > 500);
+    });
+
+    /* SCROLL REVEAL */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('v'), i * 55); obs.unobserve(e.target) }
+      });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+    /* SERVICE FILTER */
+    function fSrv(cat, btn) {
+      document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.sc').forEach(c => {
+        const s = cat === 'all' || c.dataset.cat === cat;
+        c.classList.toggle('show', s);
+      });
+    }
+
+    /* GALLERY FILTER */
+    function fGal(cat, btn) {
+      document.querySelectorAll('.gbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.gi').forEach(c => {
+        c.classList.toggle('hidden', cat !== 'all' && c.dataset.cat !== cat);
+      });
+    }
+
+    /* LIGHTBOX */
+    function lb(src, cap) {
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbCap').textContent = cap;
+      new bootstrap.Modal(document.getElementById('lbMod')).show();
+    }
+
+    /* TOAST */
+    function toast(msg, err = false) {
+      const tw = document.getElementById('tw'), ti = document.getElementById('ti');
+      ti.textContent = msg; ti.className = 'ti' + (err ? ' err' : '');
+      tw.style.display = 'block';
+      setTimeout(() => tw.style.display = 'none', 5000);
+    }
+
+    /* CONTACT — mailto (no SMTP) */
+    function sendEnq() {
+      const n = document.getElementById('fn').value.trim();
+      const e = document.getElementById('fe').value.trim();
+      const p = document.getElementById('fp').value.trim();
+      const s = document.getElementById('fs').value;
+      const d = document.getElementById('fd').value;
+      const b = document.getElementById('fb').value;
+      const m = document.getElementById('fm').value.trim();
+      if (!n) { toast('⚠ Please enter your name.', true); return }
+      if (!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { toast('⚠ Please enter a valid email address.', true); return }
+      if (!m) { toast('⚠ Please describe your vision.', true); return }
+      const sub = encodeURIComponent(`Beauty Enquiry – ${s || 'Session'} | ${n}`);
+      const body = encodeURIComponent(`Dear Priya,\n\nI would love to book a session with you.\n\nName: ${n}\nEmail: ${e}\nPhone: ${p || '—'}\nService: ${s || '—'}\nDate: ${d || 'Flexible'}\nBudget: ${b || '—'}\n\nMy Vision:\n${m}\n\nLooking forward to hearing from you!`);
+      window.location.href = `mailto:priya@priyasmakeover.com?subject=${sub}&body=${body}`;
+      try { const logs = JSON.parse(localStorage.getItem('pm_logs') || '[]'); logs.push({ n, e, s, d, m, at: new Date().toISOString() }); localStorage.setItem('pm_logs', JSON.stringify(logs)) } catch (x) { }
+      toast(`✨ Thank you, ${n}! Your enquiry is being sent. Priya replies within 24 hours!`);
+      ['fn', 'fe', 'fp', 'fd', 'fm'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('fs').value = ''; document.getElementById('fb').value = '';
+    }
+
+    /* NEWSLETTER */
+    function subscribe() {
+      const e = document.getElementById('nlE').value.trim();
+      if (!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { toast('⚠ Please enter a valid email.', true); return }
+      try { const s = JSON.parse(localStorage.getItem('pm_subs') || '[]'); if (s.includes(e)) { toast('✦ You\'re already subscribed!'); return } s.push(e); localStorage.setItem('pm_subs', JSON.stringify(s)) } catch (x) { }
+      document.getElementById('nlE').value = '';
+      toast(`🌸 Welcome, ${e.split('@')[0]}! You're now part of Priya's beauty world.`);
+    }
+
+    /* MOBILE NAV CLOSE */
+    document.querySelectorAll('.nav-link:not(.btn-nbook)').forEach(l => l.addEventListener('click', () => {
+      const c = document.getElementById('nm');
+      if (c.classList.contains('show')) bootstrap.Collapse.getInstance(c)?.hide();
+    }));
+  </script>
+</body>
+
+</html>
